@@ -1,15 +1,17 @@
 ---
-import Select from '@astrojs/starlight/components/Select.astro';
+import Select from './starlight/Select.astro';
+
+const options = [
+	{ label: Astro.locals.t('themeSelect.light'), selected: true, value: 'light' },
+	{ label: Astro.locals.t('themeSelect.dark'), selected: false, value: 'dark' },
+];
 ---
 
 <starlight-theme-select>
 	<Select
 		icon="sun"
 		label={Astro.locals.t('themeSelect.accessibleLabel')}
-		options={[
-			{ label: Astro.locals.t('themeSelect.light'), selected: true, value: 'light' },
-			{ label: Astro.locals.t('themeSelect.dark'), selected: false, value: 'dark' },
-		]}
+		options={options}
 		width="6.25em"
 	/>
 </starlight-theme-select>
@@ -21,11 +23,13 @@ import Select from '@astrojs/starlight/components/Select.astro';
 
 <script>
 	type Theme = 'dark' | 'light';
+	declare const StarlightThemeProvider: {
+		updatePickers(theme?: Theme): void;
+	};
 
 	const storageKey = 'starlight-theme';
 
-	const parseTheme = (theme: unknown): Theme =>
-		theme === 'dark' ? 'dark' : 'light';
+	const parseTheme = (theme: unknown): Theme => (theme === 'dark' ? 'dark' : 'light');
 
 	const loadTheme = (): Theme =>
 		parseTheme(typeof localStorage !== 'undefined' ? localStorage.getItem(storageKey) : 'light');
@@ -40,9 +44,7 @@ import Select from '@astrojs/starlight/components/Select.astro';
 		StarlightThemeProvider.updatePickers(theme);
 		document.documentElement.dataset.theme = theme;
 		storeTheme(theme);
-        
-        // Also dispatch the custom event for the footer toggle
-        window.dispatchEvent(new CustomEvent('starlight-theme-changed', { detail: { theme } }));
+		window.dispatchEvent(new CustomEvent('starlight-theme-changed', { detail: { theme } }));
 	}
 
 	class StarlightThemeSelect extends HTMLElement {

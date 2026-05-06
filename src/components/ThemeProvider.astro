@@ -1,5 +1,5 @@
 ---
-import Icon from '@astrojs/starlight/components/Icon.astro';
+import Icon from './starlight/Icon.astro';
 ---
 
 {/* This is intentionally inlined to avoid FOUC. */}
@@ -7,19 +7,19 @@ import Icon from '@astrojs/starlight/components/Icon.astro';
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
 			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
-		
-		// Force default to 'light' instead of system preference
+
+		// Force default to 'light' instead of system preference.
 		const theme = storedTheme || 'light';
-		
+
 		document.documentElement.dataset.theme = theme === 'dark' ? 'dark' : 'light';
-		
+
 		return {
 			updatePickers(theme = storedTheme || 'light') {
 				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
 					const select = picker.querySelector('select');
 					if (select) select.value = theme;
 					/** @type {HTMLTemplateElement | null} */
-					const tmpl = document.querySelector(`#theme-icons`);
+					const tmpl = document.querySelector('#theme-icons');
 					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
 					if (newIcon) {
 						const oldIcon = picker.querySelector('svg.label-icon');
