@@ -86,7 +86,7 @@ export default defineConfig({
 					],
 				},
 				{
-					label: 'AI And MCP',
+					label: 'Agents and MCP',
 					items: [
 						{ label: 'Agent Guide', slug: 'agents' },
 						{ label: 'Install And Operate', slug: 'agents/install-operate' },
