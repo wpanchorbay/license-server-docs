@@ -36,6 +36,10 @@ const Tag = href ? 'a' : 'article';
 
 		.license-card {
 			--license-card-accent: #5865f2;
+			--license-card-title: var(--sl-color-white);
+			--license-card-body: var(--sl-color-gray-2);
+			--license-card-icon-bg: color-mix(in srgb, var(--license-card-accent) 14%, white);
+			--license-card-icon-border: color-mix(in srgb, var(--license-card-accent) 30%, transparent);
 			position: relative;
 			overflow: hidden;
 			height: 100%;
@@ -82,12 +86,44 @@ const Tag = href ? 'a' : 'article';
 			--license-card-accent: #d9485f;
 		}
 
+		:root[data-theme='dark'] .license-card {
+			--license-card-title: #f7f9ff;
+			--license-card-body: #c7d2ea;
+			--license-card-icon-bg: color-mix(in srgb, var(--license-card-accent) 16%, #16203d 84%);
+			--license-card-icon-border: color-mix(in srgb, var(--license-card-accent) 42%, transparent);
+			border-color: color-mix(in srgb, var(--license-card-accent) 24%, #dbe5ff 6%);
+			background:
+				radial-gradient(circle at top right,
+					color-mix(in srgb, var(--license-card-accent) 26%, transparent) 0%,
+					transparent 38%),
+				linear-gradient(180deg,
+					color-mix(in srgb, #18223d 88%, var(--license-card-accent) 12%) 0%,
+					#0d1428 100%);
+			box-shadow:
+				0 1px 0 rgba(255, 255, 255, 0.06) inset,
+				0 20px 44px color-mix(in srgb, var(--license-card-accent) 16%, transparent);
+		}
+
 		.license-card-link.is-link:where(:hover, :focus-visible) .license-card {
 			transform: translateY(-3px);
 			border-color: color-mix(in srgb, var(--license-card-accent) 38%, var(--sl-color-hairline));
 			box-shadow:
 				0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset,
 				0 20px 40px color-mix(in srgb, var(--license-card-accent) 14%, transparent);
+		}
+
+		:root[data-theme='dark'] .license-card-link.is-link:where(:hover, :focus-visible) .license-card {
+			border-color: color-mix(in srgb, var(--license-card-accent) 48%, #dbe5ff 10%);
+			background:
+				radial-gradient(circle at top right,
+					color-mix(in srgb, var(--license-card-accent) 34%, transparent) 0%,
+					transparent 42%),
+				linear-gradient(180deg,
+					color-mix(in srgb, #1a2746 82%, var(--license-card-accent) 18%) 0%,
+					#101a33 100%);
+			box-shadow:
+				0 1px 0 rgba(255, 255, 255, 0.08) inset,
+				0 24px 48px color-mix(in srgb, var(--license-card-accent) 22%, transparent);
 		}
 
 		.license-card-link.is-link:focus-visible {
@@ -108,7 +144,7 @@ const Tag = href ? 'a' : 'article';
 			font-size: clamp(1.08rem, 0.98rem + 0.3vw, 1.22rem);
 			font-weight: 700;
 			line-height: 1.2;
-			color: var(--sl-color-white);
+			color: var(--license-card-title);
 		}
 
 		.icon-shell {
@@ -118,15 +154,15 @@ const Tag = href ? 'a' : 'article';
 			width: 2.25rem;
 			height: 2.25rem;
 			border-radius: 0.8rem;
-			background: color-mix(in srgb, var(--license-card-accent) 14%, white);
-			border: 1px solid color-mix(in srgb, var(--license-card-accent) 30%, transparent);
+			background: var(--license-card-icon-bg);
+			border: 1px solid var(--license-card-icon-border);
 			color: var(--license-card-accent);
 			box-shadow: 0 8px 18px color-mix(in srgb, var(--license-card-accent) 18%, transparent);
 		}
 
 		.body {
 			margin: 0;
-			color: var(--sl-color-gray-2);
+			color: var(--license-card-body);
 			font-size: var(--sl-text-body);
 			line-height: 1.65;
 		}
