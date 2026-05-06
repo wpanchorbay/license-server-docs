@@ -1,14 +1,19 @@
 ---
+import { Image } from 'astro:assets';
 import ThemeToggle from './ThemeToggle.astro';
+import wpAnchorBayLogo from '../assets/wpanchorbay-logo.svg';
 ---
 
 <footer class="license-footer">
 	<p class="license-footer-kicker">Brought to you by</p>
 	<a href="https://wpanchorbay.com/" class="license-footer-logo">
-		<img
-			src="https://wpanchorbay.com/wp-content/uploads/2026/02/logo_wpanchorbay.svg"
+		<Image
+			src={wpAnchorBayLogo}
 			alt="WPAnchorBay"
+			title="WPAnchorBay"
 			class="wpanchor-bay-logo"
+			width={260}
+			height={50}
 		/>
 	</a>
 	<p>
