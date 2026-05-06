@@ -6,7 +6,7 @@ description: Compact route reference for AI agents working with License Server i
 Base URL:
 
 ```text
-https://example.com/wp-json/license-server/v1
+https://example.com/wp-json/license-server-for-woocommerce/v1
 ```
 
 ## Public routes

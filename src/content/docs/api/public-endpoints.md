@@ -6,7 +6,7 @@ description: Reference the public license activation, validation, update-check, 
 Base namespace:
 
 ```text
-/wp-json/license-server/v1
+/wp-json/license-server-for-woocommerce/v1
 ```
 
 ## `POST /activate`

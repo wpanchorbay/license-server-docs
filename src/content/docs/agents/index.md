@@ -15,8 +15,8 @@ This section exposes the agent-facing guide in a public, crawlable form. It is u
 
 ## Core facts
 
-- Plugin slug, text domain, and REST namespace root: `license-server`.
-- REST base path: `/wp-json/license-server/v1`.
+- Plugin slug, text domain, and REST namespace root: `license-server-for-woocommerce`.
+- REST base path: `/wp-json/license-server-for-woocommerce/v1`.
 - Public API authentication is license-key based.
 - Admin API authentication is WordPress capability and nonce based.
 - WooCommerce completed orders drive automatic license generation.

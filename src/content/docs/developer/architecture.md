@@ -7,7 +7,7 @@ License Server is a WordPress plugin with a PHP backend and a React admin SPA.
 
 ## Main layers
 
-- bootstrap in `license-server.php`
+- bootstrap in `license-server-for-woocommerce.php`
 - orchestration in `app/Core/Plugin.php`
 - REST controllers in `app/Api/`
 - persistence in `app/Data/`
@@ -16,7 +16,7 @@ License Server is a WordPress plugin with a PHP backend and a React admin SPA.
 
 ## Runtime flow
 
-1. WordPress loads `license-server.php`
+1. WordPress loads `license-server-for-woocommerce.php`
 2. the plugin defines constants and autoloaders
 3. `Plugin` instantiates controllers and managers
 4. REST routes register on `rest_api_init`

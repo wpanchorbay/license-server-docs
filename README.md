@@ -29,7 +29,7 @@ The stdio command is intended for local MCP clients. The HTTP command starts a J
 
 ## Deployment Notes
 
-- Production docs are published under `/license-server`.
+- Production docs are published under `/license-server-for-woocommercer`.
 - The GitHub Pages workflow builds and deploys the generated static site.
 - `robots.txt`, `llms.txt`, `llms-full.txt`, `.well-known/mcp.json`, and sitemap files are generated as public output.
 
