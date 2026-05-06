@@ -12,7 +12,8 @@ hero:
   title: License Server
   tagline: Turn a WooCommerce store into a software licensing, activation, and update server for premium plugins, themes, and digital products.
   image:
-    html: '<span class="license-hero-mark" aria-hidden="true"></span>'
+    alt: License Server logo
+    file: ~/assets/license-server-logo-1024x1024.png
   actions:
     - text: Get Started
       icon: right-arrow
@@ -24,8 +25,10 @@ hero:
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import HeroTitleEffect from '../../components/HeroTitleEffect.astro';
 import WPAnchorBayFooter from '../../components/WPAnchorBayFooter.astro';
-import '../../styles/home.css';
+
+<HeroTitleEffect />
 
 ## What it does
 

@@ -1,0 +1,132 @@
+<script is:inline>
+(() => {
+	const selector = '[data-has-hero] [data-page-title]';
+	const readyAttr = 'data-license-title-effect-ready';
+	const activeAttr = 'data-license-title-effect-active';
+
+	const getLetters = (text) => Array.from(text);
+
+	const maskText = (letters, visibleMaskCount) => {
+		let masked = 0;
+		return letters
+			.map((letter) => {
+				if (letter === ' ') return letter;
+				masked += 1;
+				return masked <= visibleMaskCount ? '*' : letter;
+			})
+			.join('');
+	};
+
+	const revealText = (letters, visibleOriginalCount) => {
+		let revealed = 0;
+		return letters
+			.map((letter) => {
+				if (letter === ' ') return letter;
+				revealed += 1;
+				return revealed <= visibleOriginalCount ? letter : '*';
+			})
+			.join('');
+	};
+
+	const mount = () => {
+		const title = document.querySelector(selector);
+		if (!(title instanceof HTMLElement)) return;
+		if (title.getAttribute(readyAttr) === 'true') return;
+
+		const originalText = (title.textContent || '').trim();
+		const letters = getLetters(originalText);
+		const maskableCount = letters.filter((letter) => letter !== ' ').length;
+		if (!originalText || maskableCount === 0) return;
+
+		let stepTimer = 0;
+		let isRunning = false;
+
+		title.setAttribute(readyAttr, 'true');
+		title.setAttribute('aria-label', originalText);
+		title.style.setProperty('--license-title-chars', String(letters.length));
+
+		const clearStep = () => window.clearTimeout(stepTimer);
+
+		const restore = (scheduleNext = true) => {
+			clearStep();
+			title.textContent = originalText;
+			title.removeAttribute(activeAttr);
+			isRunning = false;
+			if (scheduleNext && !document.hidden) {
+				stepTimer = window.setTimeout(runEffect, 6000);
+			}
+		};
+
+		const runPhase = (from, to, delay, done) => {
+			const direction = from < to ? 1 : -1;
+			let current = from;
+
+			const tick = () => {
+				title.textContent = maskText(letters, current);
+				if (current === to) {
+					done();
+					return;
+				}
+				current += direction;
+				stepTimer = window.setTimeout(tick, delay);
+			};
+
+			tick();
+		};
+
+		const runRevealPhase = (delay, done) => {
+			let current = 0;
+
+			const tick = () => {
+				title.textContent = revealText(letters, current);
+				if (current === maskableCount) {
+					done();
+					return;
+				}
+				current += 1;
+				stepTimer = window.setTimeout(tick, delay);
+			};
+
+			tick();
+		};
+
+		const runEffect = () => {
+			if (isRunning || document.hidden) return;
+			isRunning = true;
+			title.setAttribute(activeAttr, 'true');
+
+			runPhase(0, maskableCount, 140, () => {
+				stepTimer = window.setTimeout(() => {
+					runRevealPhase(125, restore);
+				}, 1200);
+			});
+		};
+
+		title.addEventListener('pointerenter', runEffect);
+		document.addEventListener('visibilitychange', () => {
+			if (document.hidden) {
+				restore(false);
+				return;
+			}
+			stepTimer = window.setTimeout(runEffect, 3000);
+		});
+
+		window.setTimeout(runEffect, 800);
+		window.addEventListener(
+			'pagehide',
+			() => {
+				restore(false);
+			},
+			{ once: true }
+		);
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', mount, { once: true });
+	} else {
+		mount();
+	}
+
+	document.addEventListener('astro:page-load', mount);
+})();
+</script>

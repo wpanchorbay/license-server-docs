@@ -22,6 +22,7 @@ export default defineConfig({
 			title: 'License Server Docs',
 			description:
 				'Documentation for operating License Server and integrating client plugins with its licensing and update APIs.',
+			customCss: ['./src/styles/home.css'],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
 			},
