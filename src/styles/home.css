@@ -1,0 +1,92 @@
+[data-has-hero] .sl-container {
+	max-width: 1180px;
+}
+
+[data-has-hero] .hero {
+	gap: clamp(2rem, 6vw, 5rem);
+}
+
+[data-has-hero] .hero > img {
+	filter: drop-shadow(0 28px 60px color-mix(in srgb, #5865f2 28%, transparent));
+}
+
+.license-footer {
+	display: grid;
+	gap: 0.85rem;
+	justify-items: center;
+	margin-top: clamp(3rem, 8vw, 6rem);
+	padding: clamp(2rem, 6vw, 4rem) 1rem;
+	border-top: 1px solid var(--sl-color-gray-6);
+	text-align: center;
+}
+
+.license-footer-kicker,
+.license-footer p {
+	margin: 0;
+}
+
+.license-footer-logo img {
+	width: min(260px, 72vw);
+	height: auto;
+}
+
+.license-footer p:last-of-type {
+	max-width: 58rem;
+	color: var(--sl-color-gray-2);
+}
+
+@media (min-width: 50rem) {
+	[data-has-hero] .hero {
+		grid-template-columns: 7fr 4fr;
+	}
+}
+
+.license-center-cta {
+	display: flex;
+	justify-content: center;
+	margin-top: clamp(2rem, 6vw, 4rem);
+}
+
+.license-center-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	padding: 0.65rem 1.1rem;
+	border-radius: 0.5rem;
+	background: #5865f2;
+	color: #fff;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.license-center-button:hover {
+	background: color-mix(in srgb, #5865f2 88%, #000);
+	color: #fff;
+}
+
+/* Glassmorphism header: theme-aware with backdrop blur */
+:root:not([data-theme="dark"]) .page > header,
+:root:not([data-theme="dark"]) .header {
+	background: rgba(255, 255, 255, 0.60) !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+	border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+}
+
+:root[data-theme="dark"] .page > header,
+:root[data-theme="dark"] .header {
+	background: rgba(20, 24, 35, 0.60) !important;
+	backdrop-filter: blur(10px) !important;
+	-webkit-backdrop-filter: blur(10px) !important;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Fallback for systems preferring reduced transparency */
+@media (prefers-reduced-transparency: reduce) {
+	.page > header,
+	.header {
+		background: var(--sl-color-bg) !important;
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}

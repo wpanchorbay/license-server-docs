@@ -1,40 +1,94 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: License Server
+head:
+  - tag: title
+    content: License Server Docs
+description: Operate License Server, integrate client plugins, and understand the REST API and WooCommerce workflow.
+template: splash
+editUrl: false
+lastUpdated: false
+next: false
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  title: License Server
+  tagline: Turn a WooCommerce store into a software licensing, activation, and update server for premium plugins, themes, and digital products.
   image:
-    file: ../../assets/houston.webp
+    html: '<span class="license-hero-mark" aria-hidden="true"></span>'
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get Started
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+      link: /license-server/getting-started/requirements/
+    - text: View on GitHub
       icon: external
       variant: minimal
+      link: https://github.com/wpanchorbay/license-server
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import WPAnchorBayFooter from '../../components/WPAnchorBayFooter.astro';
+import '../../styles/home.css';
 
-## Next steps
+## What it does
+
+License Server converts a WooCommerce store into a licensing and update backend for software products.
+
+## Core capabilities
+
+- Automatic license generation when eligible WooCommerce orders are completed.
+- License activation and validation through a public REST API.
+- Activation limits per license key.
+- Protected update metadata and zip downloads for licensed clients.
+- Admin management for software releases, licenses, activations, and logs.
+- Customer-facing license visibility in WooCommerce account pages and order details.
+
+## Main workflows
+
+1. An admin creates a software record with a slug, version, readme, and release zip.
+2. The admin links a WooCommerce product or variation to that software slug.
+3. A customer buys the product and receives generated license keys.
+4. A client plugin activates and checks the license against the REST API.
+5. The client plugin requests update metadata and downloads the protected zip package.
+
+## Start here
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Set up the server" icon="setting">
+		Start with the installation and setup flow, then connect your first software release to WooCommerce.
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="Operate day to day" icon="document">
+		Learn how software releases, licenses, customer delivery, and troubleshooting work once the server is live.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Integrate a client plugin" icon="pencil">
+		Use the activation, check, update, and download patterns to connect another plugin to License Server.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Read the API" icon="open-book">
+		Jump straight to the public and admin endpoint reference when you need exact route behavior.
 	</Card>
 </CardGrid>
+
+## Quick Links
+
+- [Getting Started](./getting-started/requirements/)
+- [Operate License Server](./operate/software-releases/)
+- [Integrate Your Plugin](./integrations/overview/)
+- [REST API](./api/public-endpoints/)
+
+## How to navigate this documentation?
+
+You do not need to read everything at once. Start with the path that matches what you are trying to do.
+
+- If you want to install and operate License Server, read [Getting Started](./getting-started/requirements/) and [Operate License Server](./operate/software-releases/).
+- If you want to integrate another plugin or app with License Server, read [Integrate Your Plugin](./integrations/overview/) and the [REST API](./api/public-endpoints/).
+- If you want to connect License Server knowledge to an AI system, read [AI And MCP](./agents/) and [MCP Server](./agents/mcp-server/).
+- If you want the complete picture, follow the sidebar from top to bottom to understand setup, operations, integration, APIs, developer internals, and agent-facing guidance.
+
+## Who This Is For
+
+- Store owners selling premium plugins, themes, or apps through WooCommerce.
+- Plugin developers who need a license activation and update backend.
+- Engineers who need the data model, hooks, and API behavior to extend the plugin safely.
+
+<div class="license-center-cta">
+	<a href="/license-server/getting-started/requirements/" class="license-center-button">Get Started</a>
+</div>
+
+<WPAnchorBayFooter />

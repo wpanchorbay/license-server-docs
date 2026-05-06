@@ -1,49 +1,39 @@
-# Starlight Starter Kit: Basics
+# License Server Docs
 
-[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
+Public documentation site for License Server, built with Astro and Starlight.
 
-```
-bun create astro@latest -- --template starlight
-```
+## Local Development
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro + Starlight project, you'll see the following folders and files:
-
-```
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   └── docs/
-│   └── content.config.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
+```bash
+bun install
+bun run dev
 ```
 
-Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
+## Build
 
-Images can be added to `src/assets/` and embedded in Markdown with a relative link.
+```bash
+bun run build
+bun run check
+```
 
-Static assets, like favicons, can be placed in the `public/` directory.
+## MCP Server
 
-## 🧞 Commands
+The docs repo includes a read-only MCP server for AI clients:
 
-All commands are run from the root of the project, from a terminal:
+```bash
+bun run mcp
+bun run mcp:http
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+The stdio command is intended for local MCP clients. The HTTP command starts a JSON-RPC endpoint at `http://localhost:8787/mcp` and should be deployed to a dynamic host if you want a remote MCP endpoint.
 
-## 👀 Want to learn more?
+## Deployment Notes
 
-Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
+- Production docs are published under `/license-server`.
+- The GitHub Pages workflow builds and deploys the generated static site.
+- `robots.txt`, `llms.txt`, `llms-full.txt`, `.well-known/mcp.json`, and sitemap files are generated as public output.
+
+## Site Configuration
+
+- `SITE_ORIGIN` controls the canonical site origin used for sitemap and metadata generation.
+- `DOCS_REPO_URL` controls the GitHub repository link shown in the docs UI.
