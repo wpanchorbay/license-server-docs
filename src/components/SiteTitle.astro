@@ -1,9 +1,16 @@
 ---
 const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+import { BASE_PATH } from "../../site-config.mjs";
 ---
 
 <a href={siteTitleHref} class="site-title sl-flex">
-	<span class="license-navbar-mark" aria-hidden="true"></span>
+	<img
+		src={`${BASE_PATH}/assets/android-chrome-192x192.png`}
+		alt="License Server"
+		class="license-navbar-logo"
+		width="42px"
+		height="42px"
+	/>
 	<span translate="no">{siteTitle}</span>
 </a>
 
@@ -24,14 +31,12 @@ const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
 			overflow: hidden;
 		}
 
-		.license-navbar-mark {
+		.license-navbar-logo {
 			display: block;
 			flex: 0 0 auto;
 			width: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
 			height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
-			background: #5865f2;
-			mask: url('/license-server-for-woocommerce/assets/license-server-logo-inner.svg') center / contain no-repeat;
-			-webkit-mask: url('/license-server-for-woocommerce/assets/license-server-logo-inner.svg') center / contain no-repeat;
+			object-fit: contain;
 		}
 	}
 </style>
