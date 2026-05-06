@@ -25,6 +25,8 @@ export default defineConfig({
 			customCss: ['./src/styles/home.css'],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
+				ThemeProvider: './src/components/ThemeProvider.astro',
+				ThemeSelect: './src/components/ThemeSelect.astro',
 			},
 			head: [
 				{ tag: 'link', attrs: { rel: 'icon', href: `${BASE_PATH}/assets/favicon.ico` } },
