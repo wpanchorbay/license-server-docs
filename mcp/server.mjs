@@ -37,7 +37,7 @@ function readDocs() {
 			const description = raw.match(/^description:\s*(.+)$/m)?.[1]?.trim() || '';
 			return {
 				id,
-				uri: `license-server-docs://${id}`,
+				uri: `license-server-for-woocommerce://${id}`,
 				title,
 				description,
 				text: stripFrontmatter(raw),
@@ -106,7 +106,7 @@ async function handleRequest(message) {
 					prompts: {},
 				},
 				serverInfo: {
-					name: 'license-server-docs',
+					name: 'license-server-for-woocommerce',
 					version: '0.1.0',
 				},
 			});
@@ -285,7 +285,7 @@ function startHttp() {
 	});
 
 	server.listen(PORT, () => {
-		console.error(`License Server Docs MCP listening on http://localhost:${PORT}/mcp`);
+		console.error(`License Server for WooCommerce MCP listening on http://localhost:${PORT}/mcp`);
 	});
 }
 

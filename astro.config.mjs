@@ -19,7 +19,7 @@ export default defineConfig({
 	integrations: [
 		sitemap(),
 		starlight({
-			title: 'License Server Docs',
+			title: 'License Server for WooCommerce',
 			description:
 				'Documentation for operating License Server and integrating client plugins with its licensing and update APIs.',
 			customCss: ['./src/styles/home.css'],

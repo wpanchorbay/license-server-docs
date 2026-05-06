@@ -38,7 +38,7 @@ Example client command:
 {
   "command": "bun",
   "args": ["run", "mcp"],
-  "cwd": "/home/forhad/projects/license-server-docs"
+  "cwd": "/home/forhad/projects/license-server-for-woocommerce"
 }
 ```
 

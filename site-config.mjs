@@ -4,7 +4,7 @@ export const SITE_ORIGIN =
 export const BASE_PATH = '/license-server';
 
 export const REPO_URL =
-	process.env.DOCS_REPO_URL || 'https://github.com/wpanchorbay/license-server-docs';
+	process.env.DOCS_REPO_URL || 'https://github.com/wpanchorbay/license-server-for-woocommerce';
 
 export function buildAbsoluteUrl(pathname = '/') {
 	const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
