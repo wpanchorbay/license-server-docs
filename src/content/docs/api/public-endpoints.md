@@ -1,67 +1,134 @@
 ---
 title: Public Endpoints
-description: Reference the public license activation, validation, update-check, and download routes.
+description: Technical reference for public license activation, validation, and update APIs.
 ---
 
-Base namespace:
+The License Server exposes a public REST API for client plugins and themes to manage activations and check for updates.
 
+**Base Namespace:**
 ```text
-/wp-json/license-server-for-woocommerce/v1
+/wp-json/license-server/v1
 ```
 
-## `POST /activate`
+---
 
-Activates a license for a domain or environment.
+## 1. License Activation (`POST /activate`)
 
-Required fields:
+Registers a specific domain or environment against a license key.
 
-- `license_key`
-- `slug`
-- `domain`
+### Request Body (JSON)
+| Field | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `license_key` | string | Yes | The license key provided to the customer. |
+| `slug` | string | Yes | The software slug (e.g., `my-cool-plugin`). |
+| `domain` | string | Yes | The normalized host name of the client site. |
 
-Success response includes:
+### Example Request
+```json
+{
+  "license_key": "WPAB-6638C488-ABCD",
+  "slug": "my-cool-plugin",
+  "domain": "example.com"
+}
+```
 
-- `success`
-- `message`
-- `license`
-- `expires_at`
+### Success Response (`200 OK`)
+```json
+{
+  "success": true,
+  "message": "License activated successfully.",
+  "license": "valid",
+  "expires_at": "2025-12-31 23:59:59"
+}
+```
 
-## `GET /check`
+### Error Responses
+- **400 Bad Request**: Missing required parameters or slug mismatch.
+- **403 Forbidden**: Activation limit reached or license inactive/expired.
+- **404 Not Found**: Invalid license key.
 
-Validates license status.
+---
 
-Required fields:
+## 2. License Status Check (`GET /check`)
 
-- `license_key`
-- `slug`
+Verifies the current status of a license.
 
-Optional field:
+### Query Parameters
+| Parameter | Type | Required | Description |
+| :--- | :--- | :--- | :--- |
+| `license_key` | string | Yes | The license key to check. |
+| `slug` | string | Yes | The software slug. |
+| `domain` | string | No | If provided, also verifies if the license is active for this domain. |
 
-- `domain`
+### Success Response (`200 OK`)
+```json
+{
+  "success": true,
+  "license": "valid",
+  "expires_at": "2025-12-31 23:59:59",
+  "activation_limit": 3
+}
+```
 
-When `domain` is present, the API also checks whether the license is activated for that specific site.
+---
 
-## `GET /update-check/{slug}/{license_key}`
+## 3. Update Check (`GET /update-check/{slug}/{license_key}`)
 
-Returns update metadata suitable for WordPress plugin update flows and custom clients.
+Returns metadata in a format compatible with the [WordPress.org Plugin API](https://developer.wordpress.org/plugins/metadata/) and the [Plugin Update Checker (PUC)](https://github.com/YahnisElsts/plugin-update-checker) library.
 
-Optional query parameter:
+### Parameters
+- `{slug}`: The software slug.
+- `{license_key}`: The customer's license key.
 
-- `host`
+### Optional Query Params
+- `host`: The host URL requesting the update (for logging).
 
-## `GET /download/{slug}/{license_key}`
+### Success Response (`200 OK`)
+```json
+{
+  "name": "My Cool Plugin Pro",
+  "slug": "my-cool-plugin",
+  "version": "2.1.0",
+  "download_url": "https://server.com/wp-json/license-server/v1/download/my-cool-plugin/WPAB-...",
+  "package": "https://server.com/wp-json/license-server/v1/download/my-cool-plugin/WPAB-...",
+  "homepage": "https://server.com",
+  "requires": "5.0",
+  "tested": "6.5",
+  "sections": {
+    "description": "Full plugin description...",
+    "changelog": "<h4>2.1.0</h4><ul><li>Bug fixes...</li></ul>"
+  }
+}
+```
 
-Streams the release zip after validating the license.
+---
 
-Optional query parameter:
+## 4. Protected Download (`GET /download/{slug}/{license_key}`)
 
-- `host`
+Streams the latest release zip file. This endpoint performs full license validation before initiating the stream.
 
-## Rate limits
+### Parameters
+- `{slug}`: The software slug.
+- `{license_key}`: The customer's license key.
 
-Current public limits:
+### Headers
+The response is returned with standard file-stream headers:
+- `Content-Type: application/zip`
+- `Content-Disposition: attachment; filename="slug-version.zip"`
 
-- activation: 10 requests per 60 seconds
-- license check: 60 requests per 60 seconds
-- update check: 60 requests per 60 seconds
-- download: 60 requests per 60 seconds
+---
+
+## Rate Limits
+
+To prevent abuse, the following limits are enforced per IP address:
+
+| Endpoint | Limit | Window |
+| :--- | :--- | :--- |
+| `/activate` | 10 requests | 60 seconds |
+| `/check` | 60 requests | 60 seconds |
+| `/update-check` | 60 requests | 60 seconds |
+| `/download` | 60 requests | 60 seconds |
+
+:::tip
+> Clients should implement local caching (e.g., using WordPress transients) to avoid hitting these limits during normal operation.
+:::

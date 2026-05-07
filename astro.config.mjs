@@ -73,6 +73,7 @@ export default defineConfig({
 				{
 					label: 'REST API',
 					items: [
+						// Note: This slug automatically maps to public-endpoints.mdx
 						{ label: 'Public Endpoints', slug: 'api/public-endpoints' },
 						{ label: 'Admin Endpoints', slug: 'api/admin-endpoints' },
 					],
