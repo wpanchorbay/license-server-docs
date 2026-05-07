@@ -31,7 +31,22 @@ import Icon from './starlight/Icon.astro';
 			},
 		};
 	})();
+
+	// Handle external links to open in new tab
+	document.addEventListener('click', (event) => {
+		const link = event.target.closest('a');
+		if (
+			link && 
+			link.href && 
+			link.href.startsWith('http') && 
+			!link.href.startsWith(window.location.origin)
+		) {
+			link.target = '_blank';
+			link.rel = 'noopener noreferrer';
+		}
+	}, { capture: true });
 </script>
+
 
 <template id="theme-icons">
 	<Icon name="sun" class="light" />
