@@ -19,24 +19,24 @@ Official documentation site for the License Server for WooCommerce plugin. This 
 
 ## 🛠️ Local Development
 
-Built with [**Astro**](https://astro.build/) and the [**Starlight**](https://starlight.astro.build/) framework. This project uses [**Bun**](https://bun.sh/) as the primary runtime and package manager.
+Built with [**Astro**](https://astro.build/) and the [**Starlight**](https://starlight.astro.build/) framework. This project uses [**PNPM**](https://pnpm.io/) as the primary package manager.
 
 ### Installation
 ```bash
-bun install
+pnpm install
 ```
 
 ### Development Server
 Start the development server with hot-module replacement:
 ```bash
-bun run dev
+pnpm run dev
 ```
 
 ### Build & Validate
 Prepare the project for production and check for potential issues:
 ```bash
-bun run build    # Build static site
-bun run check    # Run Astro sync and TypeScript checks
+pnpm run build    # Build static site
+pnpm run check    # Run Astro sync and TypeScript checks
 ```
 
 ---
@@ -55,10 +55,10 @@ The repository includes a read-only MCP server that allows AI clients to browse 
 
 ```bash
 # Run via stdio (for local AI clients)
-bun run mcp
+pnpm run mcp
 
 # Run via HTTP (JSON-RPC endpoint)
-bun run mcp:http
+pnpm run mcp:http
 ```
 *Note: The HTTP endpoint defaults to `http://localhost:8787/mcp`.*
 

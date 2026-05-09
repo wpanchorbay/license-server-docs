@@ -216,6 +216,17 @@ html[data-has-hero] body {
 		drop-shadow(0 28px 64px rgba(88, 101, 242, 0.32)) drop-shadow(0 8px 20px rgba(88, 101, 242, 0.22));
 }
 
+/* ── Standard Docs Page Layout (Non-Index) ── */
+:root:not([data-has-hero]) {
+	--sl-content-width: 62rem; /* ~992px */
+}
+
+@media (min-width: 72rem) {
+	:root:not([data-has-hero]) .right-sidebar {
+		--sl-sidebar-width: 15rem; /* Reduced from 18.75rem to give more room to content */
+	}
+}
+
 .page>header.header {
 	background-color: var(--license-nav-bg);
 	border-bottom-color: var(--license-nav-border);
