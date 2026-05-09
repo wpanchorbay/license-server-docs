@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
-import { BASE_PATH, REPO_URL, SITE_ORIGIN } from './site-config.mjs';
+import { BASE_PATH, REPO_URL, SITE_ORIGIN, LOGO_SVG_PATH } from './site-config.mjs';
 
 const srcDir = fileURLToPath(new URL('./src', import.meta.url));
 const customIconPath = fileURLToPath(new URL('./src/components/starlight/Icon.astro', import.meta.url));
@@ -28,6 +28,10 @@ export default defineConfig({
 			description:
 				'Documentation for operating License Server and integrating client plugins with its licensing and update APIs.',
 			customCss: ['./src/styles/home.css'],
+			logo: {
+				src: LOGO_SVG_PATH,
+				replacesTitle: false,
+			},
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
 				ThemeProvider: './src/components/ThemeProvider.astro',
