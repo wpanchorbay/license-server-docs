@@ -27,6 +27,7 @@ export function renderLlmsIndex(entries: LLMDocEntry[]) {
 		'# License Server Documentation',
 		'',
 		`Canonical: ${buildAbsoluteUrl('/')}`,
+		`Full Content: ${buildAbsoluteUrl('/llms-full.txt')}`,
 		'',
 		'## Docs Index',
 		'',
